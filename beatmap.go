@@ -92,6 +92,11 @@ func (a *APIClient) GetBeatmapByDiffID(id int) (Beatmap, error) {
 	return beatmaps[0], nil
 }
 
+// GetBeatmapBySetID returns a beatmap slice containing all the difficulties of a beatmap set, passed by its ID.
+func (a *APIClient) GetBeatmapBySetID(id int) ([]Beatmap, error) {
+	return a.GetBeatmapFull(MySQLDate{}, id, 0, "", "", -1, 0, "", 0)
+}
+
 // GetBeatmapFull allows you to lookup for a beatmap using all the search options provided by the API.
 //
 // If you want to use this, please make sure there's no other way to do what you are doing, as this function is
