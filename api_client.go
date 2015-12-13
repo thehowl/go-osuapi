@@ -18,16 +18,13 @@ const (
 
 // APIClient allows you to make requests to the osu! API.
 type APIClient struct {
-	key             string
-	limiting        int
-	limitingReplays int
+	key string
 }
 
 // NewClient generates an osu! API client through which you can make requests to the osu! API (see struct APIClient).
 func NewClient(apiKey string) *APIClient {
 	return &APIClient{
 		key: apiKey,
-		// By default rate limiting is disabled, as it may drain resources when the user is already taking care of it.
 	}
 }
 
