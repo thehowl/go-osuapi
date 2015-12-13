@@ -62,6 +62,15 @@ func TestGetBeatmapFull(t *testing.T) {
 		printBeatmap(beatmap)
 	}
 }
+func TestGetBeatmapByDiffID(t *testing.T) {
+	c := testingGenClient()
+	b, err := c.GetBeatmapByDiffID(75)
+	if err != nil {
+		panic(err)
+	}
+	// We aren't iterating because in this case we are getting it by the primary key of the database, thus GetBeatmapByDiffID doesn't return an array but a single beatmap.
+	printBeatmap(b)
+}
 
 /*
 ====================

@@ -80,6 +80,18 @@ type Beatmap struct {
 
 // Welcome to hell.
 
+// GetBeatmapByDiffID returns a beatmap by searching its ID (or Diff ID), which is located in https://osu.ppy.sh/b/<ID>.
+func (a *APIClient) GetBeatmapByDiffID(id int) (Beatmap, error) {
+	beatmaps, err := a.GetBeatmapFull(MySQLDate{}, 0, id, "", "", -1, 0, "", 0)
+	if err != nil {
+		return Beatmap{}, err
+	}
+	if len(beatmaps) == 0 {
+		return Beatmap{}, nil
+	}
+	return beatmaps[0], nil
+}
+
 // GetBeatmapFull allows you to lookup for a beatmap using all the search options provided by the API.
 //
 // If you want to use this, please make sure there's no other way to do what you are doing, as this function is
