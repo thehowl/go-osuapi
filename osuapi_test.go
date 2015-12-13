@@ -7,6 +7,12 @@ import (
 	"testing"
 )
 
+/*
+====================
+     USER TESTS
+====================
+*/
+
 func TestGetUser(t *testing.T) {
 	c := testingGenClient()
 	user, err := c.GetUser("peppy", OsuStandard)
@@ -39,6 +45,27 @@ func TestGetUserFull(t *testing.T) {
 	}
 	printUser(user)
 }
+
+/*
+====================
+   BEATMAP TESTS
+====================
+*/
+
+func TestGetBeatmapFull(t *testing.T) {
+	b, err := GetBeatmapFull(MySQLDate{}, 2, 0, "peppy", "", -1, 0, "", -1)
+	if err != nil {
+		panic(err)
+	}
+	// I became lazy so I didn't want to build the helper function for printing the beatmap, ok?
+	fmt.Println(b)
+}
+
+/*
+====================
+     HELPERS
+====================
+*/
 
 func printUser(u User) {
 	fmt.Printf(`Username: %v
