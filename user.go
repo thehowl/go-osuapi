@@ -3,7 +3,6 @@ package osuapi
 import (
 	"encoding/json"
 	"fmt"
-	"time"
 )
 
 // User contains information about a user. Ezpz.
@@ -19,8 +18,7 @@ type User struct {
 	Events      []struct {
 		BeatmapID    int       `json:"beatmap_id,string"`
 		BeatmapsetID int       `json:"beatmapset_id,string"`
-		DateRaw      string    `json:"date"`
-		Date         time.Time `json:"-"`
+		Date         MySQLDate `json:"date,string"`
 		DisplayHTML  string    `json:"display_html"`
 		Epicfactor   int       `json:"epicfactor,string"`
 	} `json:"events"`
@@ -92,13 +90,6 @@ func (a *APIClient) GetUserFull(username string, gamemode int, usernameType stri
 		return
 	}
 	endUser = usersArray[0]
-	for index, value := range endUser.Events {
-		endUser.Events[index].Date, err = time.Parse("2006-01-02 15:04:05", value.DateRaw)
-		if err != nil {
-			retErr = fmt.Errorf("There was an error parsing the date in the user events. %v", err)
-			return
-		}
-	}
 	// Fucking hell that was a long ride.
 	return
 }
