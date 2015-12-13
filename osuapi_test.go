@@ -58,8 +58,9 @@ func TestGetBeatmapFull(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
-	// I became lazy so I didn't want to build the helper function for printing the beatmap, ok?
-	fmt.Println(b)
+	for _, beatmap := range b {
+		printBeatmap(beatmap)
+	}
 }
 
 /*
@@ -88,6 +89,14 @@ func printUser(u User) {
 	CountryRank: %v
 	Events: %v
 `, u.Username, u.ID, u.Count300, u.Count100, u.Count50, u.PlayCount, u.RankedScore, u.TotalScore, u.Rank, u.Level, u.PP, u.Accuracy, u.CountRankSS, u.CountRankS, u.CountRankA, u.Country, u.CountryRank, u.Events)
+}
+func printBeatmap(b Beatmap) {
+	fmt.Printf(`Beatmap: %s - %s [%s] (%s)
+	Total length: %d
+	Mode: %d
+	Tags: %s
+	Source: %s
+`, b.Artist, b.Title, b.DiffName, b.Creator, b.TotalLength, b.Mode, b.Tags, b.Source)
 }
 func testingGenClient() *APIClient {
 	data, err := ioutil.ReadFile("osukey.txt")
