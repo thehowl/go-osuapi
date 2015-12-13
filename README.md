@@ -1,6 +1,6 @@
 # go-osuapi
 
-[![docs](https://godoc.org/github.com/thehowl/go-osuapi?status.svg)](https://godoc.org/github.com/thehowl/go-osuapi)
+[![docs](https://godoc.org/github.com/thehowl/go-osuapi?status.svg)](https://godoc.org/github.com/thehowl/go-osuapi) [![Build Status](https://drone.io/github.com/thehowl/go-osuapi/status.png)](https://drone.io/github.com/thehowl/go-osuapi/latest)
 
 go-osuapi is an osu! API library for Golang.
 
