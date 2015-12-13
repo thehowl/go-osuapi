@@ -109,7 +109,14 @@ func (a *APIClient) GetBeatmapByUserID(id int) ([]Beatmap, error) {
 
 // GetBeatmapByUserWithType is the same as GetBeatmapByUser, except that you can specify whether the username is an "id" or, in fact, an username ("string")
 func (a *APIClient) GetBeatmapByUserWithType(username string, usernameType string) ([]Beatmap, error) {
-	return a.GetBeatmapFull(MySQLDate{}, 0, 0, username, usernameType, -1, 0, "", 0)
+	return a.GetBeatmapFull(MySQLDate{}, 0, 0, username, usernameType, a.previousMode, a.includeConverted, "", 0)
+}
+
+// GetBeatmapSetMode sets the osu! game mode to use for all requests about getting beatmaps.
+func (a *APIClient) GetBeatmapSetMode(mode int) {
+	if mode > -2 && mode < 4 {
+		a.previousMode = mode
+	}
 }
 
 // GetBeatmapFull allows you to lookup for a beatmap using all the search options provided by the API.

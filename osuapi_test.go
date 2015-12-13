@@ -111,6 +111,17 @@ func TestGetBeatmapByUserWithType(t *testing.T) {
 		printBeatmap(beatmap)
 	}
 }
+func TestGetBeatmapByUserInOsuMania(t *testing.T) {
+	c := testingGenClient()
+	c.GetBeatmapSetMode(OsuMania)
+	b, err := c.GetBeatmapByUser("Xenophilius")
+	if err != nil {
+		panic(err)
+	}
+	for _, beatmap := range b {
+		printBeatmap(beatmap)
+	}
+}
 
 /*
 ====================

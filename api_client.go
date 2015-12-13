@@ -12,13 +12,17 @@ const APIEndpoint = "https://osu.ppy.sh/api/"
 
 // APIClient allows you to make requests to the osu! API.
 type APIClient struct {
-	key string
+	key              string
+	previousMode     int
+	includeConverted int
 }
 
 // NewClient generates an osu! API client through which you can make requests to the osu! API (see struct APIClient).
 func NewClient(apiKey string) *APIClient {
 	return &APIClient{
-		key: apiKey,
+		key:              apiKey,
+		previousMode:     -1,
+		includeConverted: 0,
 	}
 }
 
