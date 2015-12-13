@@ -12,6 +12,7 @@ func (m *MySQLDate) UnmarshalJSON(data []byte) error {
 	dataString := string(data)
 	if dataString == "null" {
 		m = nil
+		return nil
 	}
 	inTimeLib, err := time.Parse(`"2006-01-02 15:04:05"`, dataString)
 	if err != nil {

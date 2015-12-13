@@ -1,6 +1,7 @@
 package osuapi
 
 import (
+	"encoding/json"
 	"fmt"
 )
 
@@ -47,17 +48,18 @@ const (
 
 // Beatmap contains information about a beatmap difficulty.
 type Beatmap struct {
-	Approved          int       `json:"approved,string"`
-	ApprovedDate      MySQLDate `json:"approved_date"`
-	Artist            string    `json:"artist"`
-	BeatmapID         int       `json:"beatmap_id,string"`
-	BeatmapsetID      int       `json:"beatmapset_id,string"`
-	Bpm               float64   `json:"bpm,string"`
-	Creator           string    `json:"creator"`
-	ApproachRate      int       `json:"diff_approach,string"`
-	HPDrain           int       `json:"diff_drain,string"`
-	OverallDifficulty int       `json:"diff_overall,string"`
-	CircleSize        int       `json:"diff_size,string"`
+	Approved     int       `json:"approved,string"`
+	ApprovedDate MySQLDate `json:"approved_date"`
+	Artist       string    `json:"artist"`
+	BeatmapID    int       `json:"beatmap_id,string"`
+	BeatmapsetID int       `json:"beatmapset_id,string"`
+	Bpm          float64   `json:"bpm,string"`
+	Creator      string    `json:"creator"`
+	// We're using float32 here because it's just one decimal digit who cares
+	ApproachRate      float32   `json:"diff_approach,string"`
+	HPDrain           float32   `json:"diff_drain,string"`
+	OverallDifficulty float32   `json:"diff_overall,string"`
+	CircleSize        float32   `json:"diff_size,string"`
 	Difficulty        float64   `json:"difficultyrating,string"`
 	FavouriteCount    int       `json:"favourite_count,string"`
 	FileMD5           string    `json:"file_md5"`
@@ -103,9 +105,11 @@ func (a *APIClient) GetBeatmapFull(
 	md5hash string,
 	// Limit of results to give in a page, range 1-500. Ignore value: 0.
 	limit int,
-) (b Beatmap, retErr error) {
-	b = Beatmap{}
+) (b []Beatmap, retErr error) {
+	b = []Beatmap{}
 	retErr = nil
+
+	// SANITY CHECKS
 	if err := checkUsernameType(usernameType); err != nil {
 		retErr = err
 		return
@@ -120,6 +124,47 @@ func (a *APIClient) GetBeatmapFull(
 	}
 	if limit < 0 || limit > 500 {
 		retErr = fmt.Errorf("limit must be in range 1-500 or 0 to disable")
+		return
+	}
+
+	// QUERY STRING PREPARATION
+	qs := map[string]string{
+		"a": itos(includeConverted),
+	}
+	if !since.GetTime().IsZero() {
+		qs["since"] = since.String()
+	}
+	if set != 0 {
+		qs["s"] = itos(set)
+	}
+	if beatmapID != 0 {
+		qs["b"] = itos(beatmapID)
+	}
+	if username != "" {
+		qs["u"] = username
+	}
+	if usernameType != "" {
+		qs["type"] = usernameType
+	}
+	if mode != -1 {
+		qs["m"] = itos(mode)
+	}
+	if md5hash != "" {
+		qs["hash"] = md5hash
+	}
+	if limit != 0 {
+		qs["limit"] = itos(limit)
+	}
+
+	// REQUEST SENDING
+	backJSON, err := a.makeRequest("get_beatmaps", qs)
+	if err != nil {
+		retErr = err
+		return
+	}
+	err = json.Unmarshal(backJSON, &b)
+	if err != nil {
+		retErr = fmt.Errorf("There was an error unmarshaling the returned JSON from the osu! API. %v", err)
 		return
 	}
 	return
