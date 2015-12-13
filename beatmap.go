@@ -7,12 +7,12 @@ import (
 
 // These are the statuses an osu! beatmap can have.
 const (
-	Graveyard = -2
-	WIP       = -1
-	Pending   = 0
-	Ranked    = 1
-	Approved  = 2
-	Qualified = 3
+	Graveyard = iota - 2
+	WIP
+	Pending
+	Ranked
+	Approved
+	Qualified
 )
 
 // Any is shared between languages and genre, so that's why it's outside both blocks.
@@ -20,30 +20,30 @@ const Any = 0
 
 // These are the Language IDs a beatmap can have.
 const (
-	LanguageOther = 1
-	English       = 2
-	Japanese      = 3
-	Chinese       = 4
-	Instrumental  = 5
-	Korean        = 6
-	French        = 7
-	German        = 8
-	Swedish       = 9
-	Spanish       = 10
-	Italian       = 11
+	LanguageOther = iota + 1
+	English
+	Japanese
+	Chinese
+	Instrumental
+	Korean
+	French
+	German
+	Swedish
+	Spanish
+	Italian
 )
 
 // There are the various genres a beatmap can have as a GenreID.
 const (
-	Unspecified = 1
-	Videogame   = 2
-	Anime       = 3
-	Rock        = 4
-	Pop         = 5
-	GenreOther  = 6
-	Novelty     = 7
-	HipHop      = 9
-	Electronic  = 10
+	Unspecified = iota + 1
+	Videogame
+	Anime
+	Rock
+	Pop
+	GenreOther
+	Novelty
+	HipHop
+	Electronic
 )
 
 // Beatmap contains information about a beatmap difficulty.
