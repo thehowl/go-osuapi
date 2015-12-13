@@ -1,5 +1,9 @@
 package osuapi
 
+import (
+	"fmt"
+)
+
 // These are the statuses an osu! beatmap can have.
 const (
 	Graveyard = -2
@@ -97,10 +101,26 @@ func (a *APIClient) GetBeatmapFull(
 	includeConverted int,
 	// If you're looking for a specific beatmap with a known hash, you should write it here. Ignore value: "".
 	md5hash string,
-	// Limit of results to give in a page. Ignore value: 0.
+	// Limit of results to give in a page, range 1-500. Ignore value: 0.
 	limit int,
 ) (b Beatmap, retErr error) {
 	b = Beatmap{}
 	retErr = nil
+	if err := checkUsernameType(usernameType); err != nil {
+		retErr = err
+		return
+	}
+	if mode < -1 || mode > 3 {
+		retErr = fmt.Errorf("invalid gamemode %d", mode)
+		return
+	}
+	if includeConverted != 0 && includeConverted != 1 {
+		retErr = fmt.Errorf("includeConverted must be either 0 or 1")
+		return
+	}
+	if limit < 0 || limit > 500 {
+		retErr = fmt.Errorf("limit must be in range 1-500 or 0 to disable")
+		return
+	}
 	return
 }

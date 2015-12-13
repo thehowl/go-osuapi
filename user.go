@@ -52,16 +52,16 @@ func (a *APIClient) GetUserByUsername(username string, gamemode int) (User, erro
 func (a *APIClient) GetUserFull(username string, gamemode int, usernameType string, events int) (endUser User, retErr error) {
 	retErr = nil
 	endUser = User{}
-	if gamemode > 3 || gamemode < 0 {
-		retErr = fmt.Errorf("passed gamemode is invalid")
+	if err := checkGamemode(gamemode); err != nil {
+		retErr = err
 		return
 	}
 	if events > 31 || events < 0 {
 		retErr = fmt.Errorf("event days to show is invalid (must be in range 1-31, or 0 to disable)")
 		return
 	}
-	if usernameType != "" && usernameType != "id" && usernameType != "string" {
-		retErr = fmt.Errorf(`username type is invalid (must be either "string", "id" or empty string)`)
+	if err := checkUsernameType(usernameType); err != nil {
+		retErr = err
 		return
 	}
 	qs := map[string]string{

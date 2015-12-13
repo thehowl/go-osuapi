@@ -1,6 +1,7 @@
 package osuapi
 
 import (
+	"fmt"
 	"net/url"
 	"strconv"
 )
@@ -14,4 +15,16 @@ func toFuckedUp(a map[string]string) (ret url.Values) {
 		ret.Set(k, v)
 	}
 	return
+}
+func checkUsernameType(usernameType string) error {
+	if usernameType != "" && usernameType != "id" && usernameType != "string" {
+		return fmt.Errorf(`username type is invalid (must be either "string", "id" or empty string)`)
+	}
+	return nil
+}
+func checkGamemode(gamemode int) error {
+	if gamemode > 3 || gamemode < 0 {
+		return fmt.Errorf("passed gamemode is invalid")
+	}
+	return nil
 }
