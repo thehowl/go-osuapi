@@ -81,6 +81,36 @@ func TestGetBeatmapBySetID(t *testing.T) {
 		printBeatmap(beatmap)
 	}
 }
+func TestGetBeatmapByUser(t *testing.T) {
+	c := testingGenClient()
+	b, err := c.GetBeatmapByUser("Howl")
+	if err != nil {
+		panic(err)
+	}
+	for _, beatmap := range b {
+		printBeatmap(beatmap)
+	}
+}
+func TestGetBeatmapByUserID(t *testing.T) {
+	c := testingGenClient()
+	b, err := c.GetBeatmapByUserID(447818)
+	if err != nil {
+		panic(err)
+	}
+	for _, beatmap := range b {
+		printBeatmap(beatmap)
+	}
+}
+func TestGetBeatmapByUserWithType(t *testing.T) {
+	c := testingGenClient()
+	b, err := c.GetBeatmapByUserWithType("1273955", "id")
+	if err != nil {
+		panic(err)
+	}
+	for _, beatmap := range b {
+		printBeatmap(beatmap)
+	}
+}
 
 /*
 ====================

@@ -97,6 +97,21 @@ func (a *APIClient) GetBeatmapBySetID(id int) ([]Beatmap, error) {
 	return a.GetBeatmapFull(MySQLDate{}, id, 0, "", "", -1, 0, "", 0)
 }
 
+// GetBeatmapByUser retrieves a list of beatmaps whose creator is the passed username.
+func (a *APIClient) GetBeatmapByUser(username string) ([]Beatmap, error) {
+	return a.GetBeatmapByUserWithType(username, "")
+}
+
+// GetBeatmapByUserID retrieves a list of beatmaps whose creator is the user yielding the passed user ID.
+func (a *APIClient) GetBeatmapByUserID(id int) ([]Beatmap, error) {
+	return a.GetBeatmapByUserWithType(itos(id), "id")
+}
+
+// GetBeatmapByUserWithType is the same as GetBeatmapByUser, except that you can specify whether the username is an "id" or, in fact, an username ("string")
+func (a *APIClient) GetBeatmapByUserWithType(username string, usernameType string) ([]Beatmap, error) {
+	return a.GetBeatmapFull(MySQLDate{}, 0, 0, username, usernameType, -1, 0, "", 0)
+}
+
 // GetBeatmapFull allows you to lookup for a beatmap using all the search options provided by the API.
 //
 // If you want to use this, please make sure there's no other way to do what you are doing, as this function is
