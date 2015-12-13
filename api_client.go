@@ -7,14 +7,8 @@ import (
 	"strings"
 )
 
-const (
-	// APIEndpoint is the base URL of all the osu! API requests.
-	APIEndpoint = "https://osu.ppy.sh/api/"
-	// DefaultLimiting is the number of requests you are allowed to do in a minute (this is the recommended limit).
-	DefaultLimiting = 60
-	// DefaultLimitingReplays is the number of requests you are allowed to do in 10 minutes for get_replay.
-	DefaultLimitingReplays = 10
-)
+// APIEndpoint is the base URL of all the osu! API requests.
+const APIEndpoint = "https://osu.ppy.sh/api/"
 
 // APIClient allows you to make requests to the osu! API.
 type APIClient struct {
