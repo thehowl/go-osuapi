@@ -53,7 +53,8 @@ func TestGetUserFull(t *testing.T) {
 */
 
 func TestGetBeatmapFull(t *testing.T) {
-	b, err := GetBeatmapFull(MySQLDate{}, 2, 0, "peppy", "", -1, 0, "", -1)
+	c := testingGenClient()
+	b, err := c.GetBeatmapFull(MySQLDate{}, 2, 0, "peppy", "", -1, 0, "", -1)
 	if err != nil {
 		panic(err)
 	}

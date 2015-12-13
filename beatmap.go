@@ -78,7 +78,7 @@ type Beatmap struct {
 //
 // If you want to use this, please make sure there's no other way to do what you are doing, as this function is
 // extremely unreadable when written as is.
-func GetBeatmapFull(
+func (a *APIClient) GetBeatmapFull(
 	// since is a MySQLDate containing the last time the beatmap was updated. Ignore value: MySQLDate{}.
 	since MySQLDate,
 	// set is the ID of the beatmap set (http://osu.ppy.sh/s/<id>). Ignore value: 0.
