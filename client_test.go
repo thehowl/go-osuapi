@@ -75,3 +75,15 @@ func TestGetScores(t *testing.T) {
 	}
 	t.Logf("%+v...", scores[:5])
 }
+
+func TestGetUserBest(t *testing.T) {
+	ck(t)
+	c := NewClient(apiKey)
+	scores, err := c.GetUserBest(GetUserScoresOpts{
+		UserID: 2,
+	})
+	if err != nil {
+		t.Fatal(fe(err))
+	}
+	t.Logf("%+v...", scores[:3])
+}

@@ -19,11 +19,9 @@ type GetScoresOpts struct {
 	Limit    int
 }
 
-// Score is a top 100 score from an osu! beatmap.
+// Score is an osu! score. Used in both get_scores, get_user_best and get_user_recent.
 type Score struct {
-	ScoreID   int64     `json:"score_id,string"`
 	Score     int64     `json:"score,string"`
-	Username  string    `json:"username"`
 	MaxCombo  int       `json:"maxcombo,string"`
 	Count50   int       `json:"count50,string"`
 	Count100  int       `json:"count100,string"`
@@ -39,8 +37,16 @@ type Score struct {
 	PP        float64   `json:"pp,string"`
 }
 
+// GSScore is basically Score, with the exception it also has ScoreID.
+// (stands for Get Scores Score)
+type GSScore struct {
+	ScoreID  int64  `json:"score_id,string"`
+	Username string `json:"username"`
+	Score
+}
+
 // GetScores makes a get_scores request to the osu! API.
-func (c Client) GetScores(opts GetScoresOpts) ([]Score, error) {
+func (c Client) GetScores(opts GetScoresOpts) ([]GSScore, error) {
 	// setup of querystring values
 	vals := url.Values{}
 	if opts.BeatmapID == 0 {
@@ -68,7 +74,7 @@ func (c Client) GetScores(opts GetScoresOpts) ([]Score, error) {
 	if err != nil {
 		return nil, err
 	}
-	scores := []Score{}
+	scores := []GSScore{}
 	err = json.Unmarshal(rawData, &scores)
 	if err != nil {
 		return nil, err
