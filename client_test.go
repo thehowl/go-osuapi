@@ -92,3 +92,12 @@ func TestGetUserRecent(t *testing.T) {
 		t.Fatal(fe(err))
 	}
 }
+
+func TestGetMatch(t *testing.T) {
+	ck(t)
+	c := NewClient(apiKey)
+	_, err := c.GetMatch(20138460)
+	if err != nil {
+		t.Fatal(fe(err))
+	}
+}
