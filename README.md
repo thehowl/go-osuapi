@@ -1,36 +1,37 @@
-# go-osuapi
-
-[![docs](https://godoc.org/github.com/thehowl/go-osuapi?status.svg)](https://godoc.org/github.com/thehowl/go-osuapi) [![Build Status](https://drone.io/github.com/thehowl/go-osuapi/status.png)](https://drone.io/github.com/thehowl/go-osuapi/latest)
+# go-osuapi [![docs](https://godoc.org/gopkg.in/thehowl/go-osuapi.v1?status.svg)](https://godoc.org/github.com/thehowl/go-osuapi) [![Build Status](https://travis-ci.org/thehowl/go-osuapi.svg?branch=master)](https://travis-ci.org/thehowl/go-osuapi)
 
 go-osuapi is an osu! API library for Golang.
 
-## Get started
+## Getting started
 
-With this package, mostly everything is very intuitive to do. We recommend to use go-osuapi with a go plugin or a go IDE, so that autocomplete can show up. Once you got autocomplete set up, it is very easy to do anything, as all methods are mostly self-descriptive, or in case they are not they are always "well"-documented (that is because if I don't document them my linter complains about them not being documented all damn day).
-
-Here is an example you can easily copy and paste to hack away:
+Everything is (more or less) well-documented at [godoc](https://godoc.org/gopkg.in/thehowl/go-osuapi.v1) - the methods that interest you most are probably those under [Client](https://godoc.org/gopkg.in/thehowl/go-osuapi.v1#Client). Also, [client-test.go](client-test.go) contains loads of examples on how you can use the package. If you still want to have an example to simply copypaste and then get straight to coding, well, there you go!
 
 ```go
 package main
 
 import (
 	"fmt"
-	"github.com/thehowl/go-osuapi"
+	"gopkg.in/thehowl/go-osuapi.v1"
 )
 
 func main() {
-	c := osuapi.NewClient("Your API key")
-	user, err := c.GetUser("peppy", osuapi.Standard)
+	c := osuapi.NewClient("Your API key https://osu.ppy.sh/p/api")
+	beatmaps, err := c.GetBeatmaps(osuapi.GetBeatmapsOpts{
+		BeatmapSetID: 332532,
+	})
 	if err != nil {
-		panic(err)
+		fmt.Printf("An error occurred: %v\n", err)
+		return
 	}
-	fmt.Printf("User %s is rank #%d on osu! standard.", user.Username, user.Rank)
+	for _, beatmap := range beatmaps {
+		fmt.Printf("%s - %s [%s] https://osu.ppy.sh/b/%d\n", beatmap.Artist, beatmap.Title, beatmap.DiffName, beatmap.BeatmapID)
+	}
 }
 ```
 
 ## Contributing
 
-Contributions are welcome! For conventions and such, we follow a few:
+Contributions are welcome! Here's what you need to know:
 
 * Always `go fmt` your code.
-* We use Test Driven Development to write code. In case you don't like it, that's ok. But please, make sure to have at least one test for the feature you have developed. You can test by putting your osu! API key in the file osukey.txt (it is gitignored so you don't have to worry about it getting accidentally committed) and then running `go test` (optionally with `-v`).
+* If you're writing a big and useful feature, make sure to appropriately write tests!
