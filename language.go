@@ -4,7 +4,7 @@ import "strconv"
 
 // Languages
 const (
-	LanguageAny = iota
+	LanguageAny Language = iota
 	LanguageOther
 	LanguageEnglish
 	LanguageJapanese
