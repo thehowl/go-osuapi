@@ -22,6 +22,11 @@ func (m *MySQLDate) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON converts a MySQLDate into JSON.
+func (m *MySQLDate) MarshalJSON() ([]byte, error) {
+	return []byte("\"" + m.String() + "\""), nil
+}
+
 // GetTime transforms a MySQLDate into a native time.Time.
 func (m MySQLDate) GetTime() time.Time {
 	return time.Time(m)

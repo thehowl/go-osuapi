@@ -45,9 +45,21 @@ func TestGetUser(t *testing.T) {
 		EventDays: 4,
 	})
 	if err != nil && err != ErrNoSuchUser {
-		t.Fatal(err)
+		t.Fatal(fe(err))
 	}
 	if user != nil {
-		t.Logf("%#v", user)
+		t.Logf("%+v", user)
 	}
+}
+
+func TestGetBeatmaps(t *testing.T) {
+	ck(t)
+	c := NewClient(apiKey)
+	beatmaps, err := c.GetBeatmaps(GetBeatmapsOpts{
+		BeatmapSetID: 332532,
+	})
+	if err != nil {
+		t.Fatal(fe(err))
+	}
+	t.Logf("%+v", beatmaps)
 }
