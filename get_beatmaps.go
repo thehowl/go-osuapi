@@ -33,7 +33,7 @@ type GetBeatmapsOpts struct {
 
 // Beatmap is an osu! beatmap.
 type Beatmap struct {
-	BeatmapsetID      int            `json:"beatmapset_id,string"`
+	BeatmapSetID      int            `json:"beatmapset_id,string"`
 	BeatmapID         int            `json:"beatmap_id,string"`
 	Approved          ApprovedStatus `json:"approved,string"`
 	TotalLength       int            `json:"total_length,string"`
