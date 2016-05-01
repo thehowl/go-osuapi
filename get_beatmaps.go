@@ -50,7 +50,7 @@ type Beatmap struct {
 	Artist            string         `json:"artist"`
 	Title             string         `json:"title"`
 	Creator           string         `json:"creator"`
-	BPM               int            `json:"bpm,string"`
+	BPM               float64        `json:"bpm,string"`
 	Source            string         `json:"source"`
 	Tags              string         `json:"tags"`
 	Genre             Genre          `json:"genre_id,string"`
