@@ -39,7 +39,7 @@ func TestTestClient(t *testing.T) {
 func TestGetUser(t *testing.T) {
 	ck(t)
 	c := NewClient(apiKey)
-	user, err := c.GetUser(GetUserOpts{
+	_, err := c.GetUser(GetUserOpts{
 		Username:  "Loctav",
 		Mode:      ModeTaiko,
 		EventDays: 4,
@@ -47,43 +47,48 @@ func TestGetUser(t *testing.T) {
 	if err != nil && err != ErrNoSuchUser {
 		t.Fatal(fe(err))
 	}
-	if user != nil {
-		t.Logf("%+v", user)
-	}
 }
 
 func TestGetBeatmaps(t *testing.T) {
 	ck(t)
 	c := NewClient(apiKey)
-	beatmaps, err := c.GetBeatmaps(GetBeatmapsOpts{
+	_, err := c.GetBeatmaps(GetBeatmapsOpts{
 		BeatmapSetID: 332532,
 	})
 	if err != nil {
 		t.Fatal(fe(err))
 	}
-	t.Logf("%+v", beatmaps)
 }
 
 func TestGetScores(t *testing.T) {
 	ck(t)
 	c := NewClient(apiKey)
-	scores, err := c.GetScores(GetScoresOpts{
+	_, err := c.GetScores(GetScoresOpts{
 		BeatmapID: 736213,
 	})
 	if err != nil {
 		t.Fatal(fe(err))
 	}
-	t.Logf("%+v...", scores[:5])
 }
 
 func TestGetUserBest(t *testing.T) {
 	ck(t)
 	c := NewClient(apiKey)
-	scores, err := c.GetUserBest(GetUserScoresOpts{
+	_, err := c.GetUserBest(GetUserScoresOpts{
 		UserID: 2,
 	})
 	if err != nil {
 		t.Fatal(fe(err))
 	}
-	t.Logf("%+v...", scores[:3])
+}
+
+func TestGetUserRecent(t *testing.T) {
+	ck(t)
+	c := NewClient(apiKey)
+	_, err := c.GetUserRecent(GetUserScoresOpts{
+		Username: "Cookiezi",
+	})
+	if err != nil {
+		t.Fatal(fe(err))
+	}
 }
