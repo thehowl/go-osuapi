@@ -12,7 +12,7 @@ const (
 	GenrePop
 	GenreOther
 	GenreNovelty
-	GenreHipHop = iota + 1 // there's no 8, so we must manually increment it by one
+	GenreHipHop Genre = iota + 1 // there's no 8, so we must manually increment it by one
 	GenreElectronic
 )
 
@@ -34,7 +34,7 @@ var genreString = [...]string{
 }
 
 func (g Genre) String() string {
-	if int(g) < len(genreString) {
+	if g >= 0 && int(g) < len(genreString) {
 		return genreString[g]
 	}
 	return strconv.Itoa(int(g))

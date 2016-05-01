@@ -27,8 +27,8 @@ var approvedStatusesString = [...]string{
 }
 
 func (a ApprovedStatus) String() string {
-	if int(a) < len(approvedStatusesString) {
-		return approvedStatusesString[a]
+	if a >= -2 && int(a)+2 < len(approvedStatusesString) {
+		return approvedStatusesString[a+2]
 	}
 	return strconv.Itoa(int(a))
 }

@@ -37,7 +37,7 @@ var languageString = [...]string{
 }
 
 func (l Language) String() string {
-	if int(l) < len(languageString) {
+	if l >= 0 && int(l) < len(languageString) {
 		return languageString[l]
 	}
 	return strconv.Itoa(int(l))
