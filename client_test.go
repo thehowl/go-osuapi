@@ -2,6 +2,7 @@ package osuapi
 
 import (
 	"os"
+	"strings"
 	"testing"
 )
 
@@ -21,11 +22,32 @@ func ck(t *testing.T) {
 	}
 }
 
+// fe returns err.Error(), with the API key removed
+func fe(err error) string {
+	return strings.Replace(err.Error(), apiKey, "xxxxxx", -1)
+}
+
 func TestTestClient(t *testing.T) {
 	ck(t)
 	c := NewClient(apiKey)
 	err := c.Test()
 	if err != nil {
+		t.Fatal(fe(err))
+	}
+}
+
+func TestGetUser(t *testing.T) {
+	ck(t)
+	c := NewClient(apiKey)
+	user, err := c.GetUser(GetUserOpts{
+		Username:  "Loctav",
+		Mode:      ModeTaiko,
+		EventDays: 4,
+	})
+	if err != nil && err != ErrNoSuchUser {
 		t.Fatal(err)
+	}
+	if user != nil {
+		t.Logf("%#v", user)
 	}
 }

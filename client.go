@@ -20,13 +20,19 @@ func NewClient(key string) *Client {
 	return c
 }
 
-func (c Client) makerq(endpoint string, queryString url.Values) (*http.Response, error) {
+func (c Client) makerq(endpoint string, queryString url.Values) ([]byte, error) {
 	queryString.Set("k", c.key)
 	req, err := http.NewRequest("GET", "https://osu.ppy.sh/api/"+endpoint+"?"+queryString.Encode(), nil)
 	if err != nil {
 		return nil, err
 	}
-	return c.client.Do(req)
+	resp, err := c.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	data, err := ioutil.ReadAll(resp.Body)
+	defer resp.Body.Close()
+	return data, err
 }
 
 type testResponse struct {
@@ -43,18 +49,14 @@ func (c Client) Test() error {
 	if err != nil {
 		return err
 	}
-	respData, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return err
-	}
 	var tr testResponse
-	err = json.Unmarshal(respData, &tr)
+	err = json.Unmarshal(resp, &tr)
 	// Ignore cannot unmarshal stuff
 	if err != nil && err.Error() != "json: cannot unmarshal array into Go value of type osuapi.testResponse" {
 		return err
 	}
 	if tr.Error != "" {
-		return errors.New("osu! API response: " + tr.Error)
+		return errors.New("osuapi: " + tr.Error)
 	}
 	return nil
 }
