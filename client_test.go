@@ -101,3 +101,21 @@ func TestGetMatch(t *testing.T) {
 		t.Fatal(fe(err))
 	}
 }
+
+func TestGetReplay(t *testing.T) {
+	ck(t)
+	c := NewClient(apiKey)
+	replayReader, err := c.GetReplay(GetReplayOpts{
+		Username:  "rrtyui",
+		BeatmapID: 131891,
+	})
+	if err != nil {
+		t.Fatal(fe(err))
+	}
+	d := make([]byte, 16)
+	_, err = replayReader.Read(d)
+	if err != nil {
+		t.Fatal(fe(err))
+	}
+	t.Logf("rrtyui on the big black: %x", d)
+}
