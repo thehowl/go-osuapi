@@ -63,3 +63,15 @@ func TestGetBeatmaps(t *testing.T) {
 	}
 	t.Logf("%+v", beatmaps)
 }
+
+func TestGetScores(t *testing.T) {
+	ck(t)
+	c := NewClient(apiKey)
+	scores, err := c.GetScores(GetScoresOpts{
+		BeatmapID: 736213,
+	})
+	if err != nil {
+		t.Fatal(fe(err))
+	}
+	t.Logf("%+v...", scores[:5])
+}

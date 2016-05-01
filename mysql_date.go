@@ -23,7 +23,7 @@ func (m *MySQLDate) UnmarshalJSON(data []byte) error {
 }
 
 // MarshalJSON converts a MySQLDate into JSON.
-func (m *MySQLDate) MarshalJSON() ([]byte, error) {
+func (m MySQLDate) MarshalJSON() ([]byte, error) {
 	return []byte("\"" + m.String() + "\""), nil
 }
 
