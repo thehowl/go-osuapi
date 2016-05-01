@@ -35,6 +35,20 @@ const (
 )
 
 // Mods is a bitwise enum of mods used in a score.
+//
+// Mods may appear complicated to use for a beginner programmer. Fear not!
+// This is how hard they can get for creation of a mod combination:
+//
+//    myModCombination := osuapi.ModHardRock | osuapi.ModDoubleTime | osuapi.ModHidden | osuapi.ModSpunOut
+//
+// As for checking that an existing mod comination is enabled:
+//
+//    if modCombination&osuapi.ModHardRock != 0 {
+//        // HardRock is enabled
+//    }
+//
+// To learn more about bitwise operators, have a look at it on wikipedia:
+// https://en.wikipedia.org/wiki/Bitwise_operation#Bitwise_operators
 type Mods int
 
 var modsString = [...]string{
