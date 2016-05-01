@@ -4,7 +4,7 @@ go-osuapi is an osu! API library for Golang.
 
 ## Getting started
 
-Everything is (more or less) well-documented at [godoc](https://godoc.org/gopkg.in/thehowl/go-osuapi.v1) - the methods that interest you most are probably those under [Client](https://godoc.org/gopkg.in/thehowl/go-osuapi.v1#Client). Also, [client-test.go](client-test.go) contains loads of examples on how you can use the package. If you still want to have an example to simply copypaste and then get straight to coding, well, there you go!
+Everything is (more or less) well-documented at [godoc](https://godoc.org/gopkg.in/thehowl/go-osuapi.v1) - the methods that interest you most are probably those under [Client](https://godoc.org/gopkg.in/thehowl/go-osuapi.v1#Client). Also, [client_test.go](client_test.go) contains loads of examples on how you can use the package. If you still want to have an example to simply copypaste and then get straight to coding, well, there you go!
 
 ```go
 package main
@@ -28,6 +28,10 @@ func main() {
 	}
 }
 ```
+
+## I want more than that to explore how it works!
+
+I've made [whosu](https://github.com/thehowl/whosu) for that purpose. Check it out.
 
 ## Contributing
 
