@@ -1,10 +1,10 @@
-# go-osuapi [![docs](https://godoc.org/gopkg.in/thehowl/go-osuapi.v1?status.svg)](https://godoc.org/github.com/thehowl/go-osuapi) [![Build Status](https://travis-ci.org/thehowl/go-osuapi.svg?branch=master)](https://travis-ci.org/thehowl/go-osuapi)
+# go-osuapi [![docs](https://godoc.org/github.com/thehowl/go-osuapi?status.svg)](https://godoc.org/github.com/thehowl/go-osuapi) [![Build Status](https://travis-ci.org/thehowl/go-osuapi.svg?branch=master)](https://travis-ci.org/thehowl/go-osuapi) [![Go Report Card](https://goreportcard.com/badge/github.com/thehowl/go-osuapi)](https://goreportcard.com/report/github.com/thehowl/go-osuapi)
 
 go-osuapi is an osu! API library for Golang.
 
 ## Getting started
 
-Everything is (more or less) well-documented at [godoc](https://godoc.org/gopkg.in/thehowl/go-osuapi.v1) - the methods that interest you most are probably those under [Client](https://godoc.org/gopkg.in/thehowl/go-osuapi.v1#Client). Also, [client_test.go](client_test.go) contains loads of examples on how you can use the package. If you still want to have an example to simply copypaste and then get straight to coding, well, there you go!
+Everything is (more or less) well-documented at [godoc](https://godoc.org/github.com/thehowl/go-osuapi) - the methods that interest you most are probably those under [Client](https://godoc.org/github.com/thehowl/go-osuapi#Client). Also, [client_test.go](client_test.go) contains loads of examples on how you can use the package. If you still want to have an example to simply copypaste and then get straight to coding, well, there you go!
 
 ```go
 package main
