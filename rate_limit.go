@@ -37,6 +37,7 @@ func RateLimit(maxRequests int) {
 	if !routStarted {
 		go requestIncreaser()
 	}
+	routStarted = true
 }
 func requestIncreaser() {
 	for {
