@@ -26,6 +26,10 @@ func (c Client) makerq(endpoint string, queryString url.Values) ([]byte, error) 
 	if err != nil {
 		return nil, err
 	}
+	// if we are rate limiting requests, then wait before making request
+	if requestsAvailable != nil {
+		<-requestsAvailable
+	}
 	resp, err := c.client.Do(req)
 	if err != nil {
 		return nil, err
