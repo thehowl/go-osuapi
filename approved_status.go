@@ -10,6 +10,7 @@ const (
 	StatusRanked
 	StatusApproved
 	StatusQualified
+	StatusLoved
 )
 
 // ApprovedStatus - also known as ranked status - is the status of a beatmap.
@@ -24,6 +25,7 @@ var approvedStatusesString = [...]string{
 	"ranked",
 	"approved",
 	"qualified",
+	"loved",
 }
 
 func (a ApprovedStatus) String() string {
