@@ -18,7 +18,7 @@ func TestSetKey(t *testing.T) {
 // ck checks that the apikey is set, if not it immediately fails the test.
 func ck(t *testing.T) {
 	if apiKey == "" {
-		t.Fatal("no api key")
+		t.Skip("no api key")
 	}
 }
 
