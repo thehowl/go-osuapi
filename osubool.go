@@ -9,7 +9,7 @@ type OsuBool bool
 
 // UnmarshalJSON converts `"0"` to false and `"1"` to true.
 func (o *OsuBool) UnmarshalJSON(data []byte) error {
-	if string(data) == `"0"` {
+	if string(data) == `0` {
 		*o = false
 		return nil
 	}
