@@ -7,19 +7,21 @@ package osuapi
 // to a native bool, just do `bool(yourOsuBool)`
 type OsuBool bool
 
-// UnmarshalJSON converts `"0"` to false and `"1"` to true.
+// UnmarshalJSON converts `"1"` and `1` to true and all other values to false.
 func (o *OsuBool) UnmarshalJSON(data []byte) error {
-	if string(data) == `0` {
-		*o = false
+	dataString := string(data)
+	if dataString == `1` || dataString == `"1"` {
+		*o = true
 		return nil
 	}
-	*o = true
+	*o = false
 	return nil
 }
+
 // MarshalJSON does UnmarshalJSON the other way around.
 func (o OsuBool) MarshalJSON() ([]byte, error) {
 	if o {
 		return []byte(`"1"`), nil
 	}
 	return []byte(`"0"`), nil
-} 
+}
