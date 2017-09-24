@@ -1,6 +1,6 @@
 # go-osuapi [![docs](https://godoc.org/github.com/thehowl/go-osuapi?status.svg)](https://godoc.org/github.com/thehowl/go-osuapi) [![Build Status](https://travis-ci.org/thehowl/go-osuapi.svg?branch=master)](https://travis-ci.org/thehowl/go-osuapi) [![Go Report Card](https://goreportcard.com/badge/github.com/thehowl/go-osuapi)](https://goreportcard.com/report/github.com/thehowl/go-osuapi)
 
-go-osuapi is an osu! API library for Golang.
+go-osuapi is a Go package to retrieve data from the osu! API.
 
 ## Getting started
 
@@ -11,7 +11,7 @@ package main
 
 import (
 	"fmt"
-	"gopkg.in/thehowl/go-osuapi.v1"
+	osuapi "github.com/thehowl/go-osuapi"
 )
 
 func main() {
@@ -28,6 +28,10 @@ func main() {
 	}
 }
 ```
+
+Please note that if you actually want to use this, you should consider vendoring
+this using the [dep tool](https://github.com/golang/dep), so that your code
+keeps working regardless of any change we might do in this repository.
 
 ## I want more than that to explore how it works!
 
