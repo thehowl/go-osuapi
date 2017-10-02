@@ -1,11 +1,14 @@
 package osuapi
 
 import (
+	"crypto/tls"
 	"encoding/json"
 	"errors"
 	"io/ioutil"
+	"net"
 	"net/http"
 	"net/url"
+	"time"
 )
 
 // Client is an osu! API client that is able to make API requests.
@@ -16,7 +19,25 @@ type Client struct {
 
 // NewClient generates a new Client based on an API key.
 func NewClient(key string) *Client {
-	c := &Client{&http.Client{}, key}
+	t := &http.Transport{
+		// values for http.DefaultTransport
+		Proxy: http.ProxyFromEnvironment,
+		DialContext: (&net.Dialer{
+			Timeout:   30 * time.Second,
+			KeepAlive: 30 * time.Second,
+			DualStack: true,
+		}).DialContext,
+		MaxIdleConns:          100,
+		IdleConnTimeout:       90 * time.Second,
+		TLSHandshakeTimeout:   10 * time.Second,
+		ExpectContinueTimeout: 1 * time.Second,
+
+		// disable HTTP/2, as it does not seem to cope well with osu!
+		TLSNextProto: make(map[string]func(authority string, c *tls.Conn) http.RoundTripper),
+	}
+	c := &Client{&http.Client{
+		Transport: t,
+	}, key}
 	return c
 }
 
