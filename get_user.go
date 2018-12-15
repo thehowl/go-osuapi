@@ -22,24 +22,27 @@ type GetUserOpts struct {
 
 // User is an osu! user.
 type User struct {
-	UserID      int     `json:"user_id,string"`
-	Username    string  `json:"username"`
-	Count300    int     `json:"count300,string"`
-	Count100    int     `json:"count100,string"`
-	Count50     int     `json:"count50,string"`
-	Playcount   int     `json:"playcount,string"`
-	RankedScore int64   `json:"ranked_score,string"`
-	TotalScore  int64   `json:"total_score,string"`
-	Rank        int     `json:"pp_rank,string"`
-	Level       float64 `json:"level,string"`
-	PP          float64 `json:"pp_raw,string"`
-	Accuracy    float64 `json:"accuracy,string"`
-	CountSS     int     `json:"count_rank_ss,string"`
-	CountS      int     `json:"count_rank_s,string"`
-	CountA      int     `json:"count_rank_a,string"`
-	Country     string  `json:"country"`
-	CountryRank int     `json:"pp_country_rank,string"`
-	Events      []Event `json:"events"`
+	UserID      int       `json:"user_id,string"`
+	Username    string    `json:"username"`
+	Date        MySQLDate `json:"join_date"`
+	Count300    int       `json:"count300,string"`
+	Count100    int       `json:"count100,string"`
+	Count50     int       `json:"count50,string"`
+	Playcount   int       `json:"playcount,string"`
+	RankedScore int64     `json:"ranked_score,string"`
+	TotalScore  int64     `json:"total_score,string"`
+	Rank        int       `json:"pp_rank,string"`
+	Level       float64   `json:"level,string"`
+	PP          float64   `json:"pp_raw,string"`
+	Accuracy    float64   `json:"accuracy,string"`
+	CountSS     int       `json:"count_rank_ss,string"`
+	CountSSH    int       `json:"count_rank_ssh,string"`
+	CountS      int       `json:"count_rank_s,string"`
+	CountSH     int       `json:"count_rank_sh,string"`
+	CountA      int       `json:"count_rank_a,string"`
+	Country     string    `json:"country"`
+	CountryRank int       `json:"pp_country_rank,string"`
+	Events      []Event   `json:"events"`
 }
 
 // Event is a notorious action an user has done recently.
