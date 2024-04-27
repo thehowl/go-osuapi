@@ -60,6 +60,7 @@ type Beatmap struct {
 	Passcount         int            `json:"passcount,string"`
 	MaxCombo          int            `json:"max_combo,string"`
 	DifficultyRating  float64        `json:"difficultyrating,string"`
+	Video             OsuBool        `json:"video"`
 }
 
 // GetBeatmaps makes a get_beatmaps request to the osu! API.
